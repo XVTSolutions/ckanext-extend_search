@@ -1,0 +1,39 @@
+{% ckan_extends %} {# extend ckan template #}
+
+{% block secondary_content %}
+
+    {{ super() }} {# load the default block content first #}
+
+    {# Need to replace default search results with my results #}
+
+
+    {# stuff #}
+    <section class="module module-narrow module-shallow">
+        <h2 class="module-heading">
+            <i class="icon-medium icon-filter"></i>
+            Custodian</h2>
+        <p class="module-content empty">The title of this site is: {{ app_globals.site_title }}.</p>
+    </section>
+
+    <section class="module module-narrow module-shallow">
+        <h2 class="module-heading">
+            <i class="icon-medium icon-filter"></i>
+            Date/Date Range
+        </h2>
+        <p class="module-content empty">The title of this site is: {{ app_globals.site_title }}.</p>
+    </section>
+
+
+
+    {# Show a list of the site's most popular groups. #}
+    <h3>Most popular groups</h3>
+    <ul>
+    {% for group in h.extend_search_get_stuff() %}
+        <li>{{ group.display_name }}</li>
+    {% endfor %}
+    </ul>
+
+{% endblock %}
+
+
+

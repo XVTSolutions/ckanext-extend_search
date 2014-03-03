@@ -1,0 +1,50 @@
+info it worked if it ends with ok
+verbose cli [ 'node', '/usr/bin/npm', 'install', 'less', 'nodewatch' ]
+info using npm@1.1.4
+info using node@v0.6.12
+verbose config file /home/stuart/.npmrc
+verbose config file /usr/etc/npmrc
+verbose config file /usr/share/npm/npmrc
+verbose cache add [ 'less', null ]
+silly cache add: name, spec, args [ undefined, 'less', [ 'less', null ] ]
+verbose parsed url { pathname: 'less', path: 'less', href: 'less' }
+verbose cache add [ 'nodewatch', null ]
+silly cache add: name, spec, args [ undefined, 'nodewatch', [ 'nodewatch', null ] ]
+verbose parsed url { pathname: 'nodewatch', path: 'nodewatch', href: 'nodewatch' }
+verbose addNamed [ 'less', '' ]
+verbose addNamed [ null, '' ]
+silly name, range, hasData [ 'less', '', false ]
+verbose addNamed [ 'nodewatch', '' ]
+verbose addNamed [ null, '' ]
+silly name, range, hasData [ 'nodewatch', '', false ]
+verbose raw, before any munging less
+verbose url resolving [ 'https://registry.npmjs.org/', './less' ]
+verbose url resolved https://registry.npmjs.org/less
+http GET https://registry.npmjs.org/less
+verbose raw, before any munging nodewatch
+verbose url resolving [ 'https://registry.npmjs.org/', './nodewatch' ]
+verbose url resolved https://registry.npmjs.org/nodewatch
+http GET https://registry.npmjs.org/nodewatch
+ERR! Error: failed to fetch from registry: less
+ERR!     at /usr/share/npm/lib/utils/npm-registry-client/get.js:139:12
+ERR!     at cb (/usr/share/npm/lib/utils/npm-registry-client/request.js:31:9)
+ERR!     at Request._callback (/usr/share/npm/lib/utils/npm-registry-client/request.js:136:18)
+ERR!     at Request.callback (/usr/lib/nodejs/request/main.js:119:22)
+ERR!     at Request.<anonymous> (/usr/lib/nodejs/request/main.js:212:58)
+ERR!     at Request.emit (events.js:88:20)
+ERR!     at ClientRequest.<anonymous> (/usr/lib/nodejs/request/main.js:412:12)
+ERR!     at ClientRequest.emit (events.js:67:17)
+ERR!     at HTTPParser.onIncoming (http.js:1261:11)
+ERR!     at HTTPParser.onHeadersComplete (http.js:102:31)
+ERR! You may report this log at:
+ERR!     <http://bugs.debian.org/npm>
+ERR! or use
+ERR!     reportbug --attach /usr/lib/ckan/default/src/ckanext-extend_search/ckanext/extend_search/npm-debug.log npm
+ERR! 
+ERR! System Linux 3.5.0-46-generic
+ERR! command "node" "/usr/bin/npm" "install" "less" "nodewatch"
+ERR! cwd /usr/lib/ckan/default/src/ckanext-extend_search/ckanext/extend_search
+ERR! node -v v0.6.12
+ERR! npm -v 1.1.4
+ERR! message failed to fetch from registry: less
+verbose exit [ 1, true ]
