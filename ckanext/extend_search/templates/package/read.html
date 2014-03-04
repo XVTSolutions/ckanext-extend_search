@@ -1,0 +1,17 @@
+{% ckan_extends %}
+
+{% block package_description %}
+    {{ super() }}
+
+        <h4>read.html</h4>
+
+
+        <section id="dataset-custodian" class="resources module-content">
+            <p><strong>Custodian</strong>: {{ h.extend_search_custodian() }}</p>
+        </section>
+            <section id="dataset-datetime" class="resources module-content">
+            <p><strong>Date</strong>: {{ h.extend_search_datetime() }}</p>
+        </section>
+
+
+{% endblock %}

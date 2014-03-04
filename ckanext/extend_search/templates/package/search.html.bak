@@ -23,16 +23,6 @@
         <p class="module-content empty">The title of this site is: {{ app_globals.site_title }}.</p>
     </section>
 
-
-
-    {# Show a list of the site's most popular groups. #}
-    <h3>Most popular groups</h3>
-    <ul>
-    {% for group in h.extend_search_get_stuff() %}
-        <li>{{ group.display_name }}</li>
-    {% endfor %}
-    </ul>
-
 {% endblock %}
 
 

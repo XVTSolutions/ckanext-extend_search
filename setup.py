@@ -6,7 +6,7 @@ version = '0.0'
 setup(
     name='ckanext-extend_search',
     version=version,
-    description="Extends the Ckan search",
+    description="Extends Ckan dataset search",
     long_description='''
     ''',
     classifiers=[], # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
