@@ -80,11 +80,11 @@ class ExtendSearchPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
     # def history_template(self):
     #     return 'package/history.html'
 
-    #Required
+    #Required to implement IDatasetForm
     def package_types(self):
         return ['dataset']
 
-    #Required
+    #Required to implement IDatasetForm
     def is_fallback(self):
         return True
 
@@ -101,18 +101,31 @@ class ExtendSearchPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         })
         return  schema
 
+    #Schema to use when creating a Dataset
     def create_package_schema(self):
         schema = super(ExtendSearchPlugin, self).create_package_schema()
         schema = self._modify_package_schema(schema)
         return  schema
 
+    #Schema to use when updating a Dataset
     def update_package_schema(self):
         schema = super(ExtendSearchPlugin, self).update_package_schema()
         schema = self._modify_package_schema(schema)
         return  schema
 
-    # def show_package_schema(self):
-    #     schema = super(ExtendSearchPlugin, self).show_package_schema()
+    def show_package_schema(self):
+         schema = super(ExtendSearchPlugin, self).show_package_schema()
+
+         schema.update({
+             'custodian': [toolkit.get_validator('ignore_missing'),
+                          toolkit.get_converter('convert_to_tags')('custodian')
+             ]
+         })
+         schema.update({
+             'datetime': [toolkit.get_validator('ignore_missing'),
+                          toolkit.get_converter('convert_to_tags')('datetime')
+             ]
+         })
 
 
 
