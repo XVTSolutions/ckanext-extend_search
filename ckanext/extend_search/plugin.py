@@ -7,7 +7,6 @@ class ExtendSearchPlugin(plugins.SingletonPlugin):
     '''
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IPackageController, inherit=True)
-    plugins.implements(plugins.ITemplateHelpers)
 
 
     def update_config(self, config):
