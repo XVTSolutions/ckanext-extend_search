@@ -1,0 +1,25 @@
+{# Displays the start and end date search facets on the search form #}
+
+{% ckan_extends %}
+
+{% block search_facets %}
+    {{ super() }}
+
+    <div id="datesearch-filter">
+
+        {% if (request.params.get('ext_startdate')) %}
+        <p class="filter-list">
+            <span class="facet">Start Date:</span>
+            <span id="ext_startdate_after" class="filtered pill"></span>
+        {% endif %}
+
+        {% if (request.params.get('ext_enddate')) %}
+            <span class="facet">End Date:</span>
+            <span id="ext_enddate_after" class="filtered pill"></span>
+        </p>
+        {% endif %}
+
+    </div>
+
+{% endblock %}
+
