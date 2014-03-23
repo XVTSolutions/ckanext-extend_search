@@ -1,5 +1,4 @@
 Uses and extends upon bootstrap-daterangepicker (credit to Dan Grossman Copyright 2012-2014)
-(   github.com/dangrossman/bootstrap-daterangepicker/   )
 ==================================================================
 Extend Search extension
 
