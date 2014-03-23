@@ -1,5 +1,10 @@
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
+from ckan.model import Package, Activity
+import ckan.model.meta as meta
+import datetime as date
+import itertools as itertools
+
 
 # def check_activity_streams_enabled():
 #     # NOTE about the recording of activities...
@@ -10,26 +15,69 @@ import ckan.plugins.toolkit as toolkit
 #
 #     return "Check .ini config file setting on install of extension"
 
-
 #Returns custodian field for the Dataset/Package
 def custodian():
 
-    custodian = "John"
+    #custodian = action.get.user_show({'id':'0b6205c0-3003-4065-80c7-cfefa78be0fc'})
+    custodian = "John Citizen"
 
     return custodian
 
 #Returns Activity datetime for the Dataset/Package
-def datetime():
+def datetime(pkg_id):
 
-    datetime = "01/01/2014 12:00pm"
+    datetime = "asdf"
 
     return datetime
 
+'''
+Filter activities by date range. Returns activities
+'''
+def filter_by_date(activities, date_min, date_max):
+
+    _date_min = None
+    _date_max = None
+
+    if(date_min):
+        _date_min = date_min
+    else:
+        _date_min = date.datetime(1901,01,01)
+
+    if(date_max):
+        _date_max = date_max
+    else:
+        _date_max = date.datetime.now()
+
+    activities_filtered = itertools.ifilter(lambda x: x.activity_type == 'new package', activities)
+    activities_filtered = itertools.ifilter(lambda x: x.timestamp >= _date_min, activities_filtered)
+    activities_filtered = itertools.ifilter(lambda x: x.timestamp <= _date_max, activities_filtered)
+
+    return activities_filtered
 
 class ExtendSearchPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
     '''Extends the Ckan dataset/package search
 
     '''
+    #self.before_search({'name':'bananas'})
+
+    activities = meta.Session.query(Activity).all()
+
+   # print([p.object_id for p in activities])
+
+    activities_filtered = filter_by_date(activities, None, None)
+
+   # print([a.object_id for a in activities_filtered])
+
+    packages = []
+    for a in activities_filtered:
+        package = meta.Session.query(Package).filter(Package.id==a.object_id).first()
+
+        if(package):
+            packages.append(package)
+
+    if(packages):
+        print([p.name for p in packages])
+
     # Declare that this plugin will implement ITemplateHelpers.
     plugins.implements(plugins.ITemplateHelpers, inherit=True)
 
@@ -38,6 +86,9 @@ class ExtendSearchPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
     # Declare that this class implements IConfigurer.
     plugins.implements(plugins.IConfigurer, inherit=True)
+
+    plugins.implements(plugins.interfaces.IPackageController, inherit=True)
+
 
 
     def update_config(self, config):
@@ -61,6 +112,23 @@ class ExtendSearchPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
             'extend_search_custodian': custodian,
             'extend_search_datetime': datetime
              }
+
+
+    def before_search(self, search_params):
+        print search_params
+
+        #Attach our custom search fields
+        # - Custodian
+        # - Date/DateRange
+
+        return search_params
+
+
+    # def after_search(*search_results, **search_params):
+    #     print search_results
+    #     #print search_params
+
+    #    return ({'count': '2','results': search_results, 'facets': 'test'})
 
     # def package_form(self):
     #     return 'package/new_package_form.html'
@@ -86,7 +154,7 @@ class ExtendSearchPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
     #Required to implement IDatasetForm
     def is_fallback(self):
-        return True
+        return False
 
     def setup_template_variables(self, context, data_dict=None, package_type=None):
         from ckan.lib.base import c
@@ -128,28 +196,3 @@ class ExtendSearchPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
          })
 
 
-
-    # def form_to_db_schema(self, package_type=None):
-    #     from ckan.logic.schema import package_form_schema
-    #     from ckan.lib.navl.validators import ignore_missing
-    #     from ckan.logic.converters import convert_to_tags
-    #
-    #     schema = package_form_schema()
-    #     # schema.update({
-    #     #     'custodian': [ignore_missing, convert_to_tags('country_codes')]
-    #     # })
-    #     return schema
-    #
-    # def db_to_form_schema(data, package_type=None):
-    #     from ckan.logic.schema import package_form_schema
-    #     from ckan.logic.converters import convert_from_tags, free_tags_only
-    #     from ckan.lib.navl.validators import ignore_missing, keep_extras
-    #
-    #     schema = package_form_schema()
-    #     # schema.update({
-    #     #     'tags': {
-    #     #         '__extras': [keep_extras, free_tags_only]
-    #     #     },
-    #     #     'geographical_coverage': [convert_from_tags('country_codes'), ignore_missing],
-    #     # })
-    #     return schema
