@@ -20,5 +20,18 @@
     </div>
   </section>
 
+  {# This <section> is the user selectlist in the sidebar. #}
+  <section class="module module-narrow module-shallow">
+    <h2 class="module-heading">
+      <a href="{{ h.remove_url_param(['ext_user_id']) }}"
+         class="action">{{ _('ClearUserId') }}</a>
+    </h2>
+    <div class="module-content input-prepend" data-module="daterange-query">
+      <span class="add-on"><i class="icon-calendar"></i></span>
+      <input type="text" style="cursor:pointer; width: 150px" readonly id="daterange"
+             data-module="daterangepicker-module" />
+    </div>
+  </section>
+
   {{ super() }}
 {% endblock %}
