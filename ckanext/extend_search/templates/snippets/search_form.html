@@ -22,12 +22,14 @@
 
     {# Custodian #}
     <div id="custodian-filter">
-        {% if (request.params.get('ext_cust')) %}
+        {% if (request.params.get('ext_cust_id')) %}
         <p class="filter-list">
             <span class="facet">Custodian:</span>
-            <span id="ext_cust" class="filtered pill"></span>
+            <span id="ext_cust_after" class="filtered pill"></span>
         {% endif %}
     </div>
 
 {% endblock %}
+
+{# {{ h.get_user_name_by_id(request.params.get('ext_cust_id')) }} #}
 

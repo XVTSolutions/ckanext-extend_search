@@ -5,6 +5,7 @@
   {% resource 'ckanext-datesearch/daterangepicker.js' %}
   {% resource 'ckanext-datesearch/daterangepicker-bs3.css' %}
   {% resource 'ckanext-datesearch/daterangepicker-module.js' %}
+  {% resource 'ckanext-datesearch/custodianpicker-module.js' %}
 
   {# This <section> is the date-range picker widget in the sidebar. #}
   <section class="module module-narrow module-shallow">
@@ -20,7 +21,7 @@
     </div>
   </section>
 
-  {# This <section> is the custodian selectlist in the sidebar. #}
+  {# Custodian <section> #}
   <section class="module module-narrow module-shallow">
     <h2 class="module-heading">
         <i class="icon-medium icon-filter"></i>
@@ -28,8 +29,9 @@
       <a href="{{ h.remove_url_param(['ext_cust_id']) }}"
          class="action">{{ _('Clear') }}</a>
     </h2>
-      
-    <select id="cust_id" name="cust_id">
+
+    {# The Custodian selectlist #}
+    <select id="cust_id" name="cust_id" data-module="custodianpicker-module">
     {% for user in c.users %}
         <option value="{{user.id}}"
             {% if request.params.get('ext_cust_id')==user.id %}
