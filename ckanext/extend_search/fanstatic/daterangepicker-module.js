@@ -22,14 +22,26 @@ this.ckan.module('daterangepicker-module', function($, _) {
 
             if(getURLParameter("ext_startdate")) {
                 ext_startdate = new Date(getURLParameter("ext_startdate"));
-                ext_startdate = ext_startdate.toDateString();
-                $('#ext_startdate_after').text(ext_startdate);
+
+                //Convert to ISO string (for resubmission to solr)
+                var iso_start = ext_startdate.toISOString();
+                $('#ext_startdate').val(iso_start);
+
+                //Convert to Date string (for display purposes)
+                var startDateString = ext_startdate.toDateString();
+                $('#ext_startdate_after').text(startDateString);
             }
 
             if(getURLParameter("ext_enddate")) {
                 ext_enddate = new Date(getURLParameter("ext_enddate"));
-                ext_enddate = ext_enddate.toDateString();
-                $('#ext_enddate_after').text(ext_enddate);
+
+                //Convert to ISO string (for resubmission to solr)
+                var iso_end = ext_enddate.toISOString();
+                $('#ext_enddate').val(iso_end);
+
+                //Convert to Date string (for display purposes)
+                var endDateString = ext_enddate.toDateString();
+                $('#ext_enddate_after').text(endDateString);
             }
             //Initialise the daterange picker textbox with the previously searched daterange
             if(ext_startdate && ext_enddate)
@@ -50,7 +62,7 @@ this.ckan.module('daterangepicker-module', function($, _) {
                    'Last Year': [moment().subtract('year', 1).startOf('year'), moment().subtract('year', 1).endOf('year')]
                 },
                 startDate: moment().startOf('day'),
-                endDate: moment().endOf('day'),
+                endDate: moment().startOf('day'),
                 showDropdowns: true,
                 timePicker: true
             },

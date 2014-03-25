@@ -21,7 +21,7 @@ this.ckan.module('custodianpicker-module', function($, _) {
             if(ext_cust_id)
             {
                 //Initialise dropdown
-                $('#cust_id option[user_id="ext_cust_id"]')
+                $('#cust_id option[user="ext_cust_id"]')
 
                 //$('#cust_id option:eq(ext_cust_id)).attr('selected', "selected")
             }

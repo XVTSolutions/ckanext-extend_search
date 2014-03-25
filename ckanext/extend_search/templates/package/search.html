@@ -33,13 +33,13 @@
     {# The Custodian selectlist #}
     <div class="module-content">
         <select id="cust_id" name="cust_id" style="width: 190px" data-module="custodianpicker-module">
-        {% for user in c.users %}
-            <option value="{{user.name}}"
-                {% if request.params.get('ext_cust_id')==user.name %}
+        {% for user in c.maintainers %}
+            <option value="{{user}}"
+                {% if request.params.get('ext_cust_id')==user %}
                     selected="selected"
                 {% endif %}
                     >
-            {{user.name}}
+            {{user}}
             </option>
         {% endfor %}
         </select>
