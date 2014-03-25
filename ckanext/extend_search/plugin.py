@@ -87,6 +87,9 @@ class ExtendSearchPlugin(plugins.SingletonPlugin):
     def history_template(self):
         return 'package/history.html'
 
+    def edit_template(self):
+        return  'package/edit.html'
+
     def package_types(self):
         return ['dataset']
 
