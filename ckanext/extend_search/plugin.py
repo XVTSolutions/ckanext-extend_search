@@ -11,7 +11,6 @@ class ExtendSearchPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
     '''
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IDatasetForm, inherit=True)
-
     plugins.implements(plugins.IPackageController, inherit=True)
 
 
@@ -26,17 +25,14 @@ class ExtendSearchPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
         extras = search_params.get('extras')
         if not extras:
-            print ('no extras')
             # There are no extras in the search params, so do nothing.
             return search_params
 
-        print ('extras')
         start_date = extras.get('ext_startdate')
         end_date = extras.get('ext_enddate')
         cust_id = extras.get('ext_cust_id')
 
         if not cust_id:
-            print('no custodian id param')
             if not start_date or not end_date:
                 # The user didn't select any additional params, so do nothing.
                 return search_params
@@ -51,13 +47,12 @@ class ExtendSearchPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
         #Add creator (user) id query to the Solr facet queries
         if cust_id:
-            print (cust_id)
             fq = '{fq} +maintainer:{cust_id}'.format(
                 fq=fq, cust_id=cust_id)
 
         #return modified facet queries
         search_params['fq'] = fq
-        print (fq)
+
         return search_params
 
 
