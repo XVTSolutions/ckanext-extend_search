@@ -1,30 +1,8 @@
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
-from ckan.model import Package, User
+from ckan.model import User
 import ckan.model.meta as meta
-import itertools as itertools
-
-
-def get_package_creators():
-
-    packages = meta.Session.query(Package).all()
-    users = meta.Session.query(User).all()
-
-    matched_users = []
-    users_set = ([])
-
-    for p in packages:
-        user = itertools.ifilter(lambda x: x.id == p.creator_user_id, users)
-
-        if(user):
-            matched_users.append(user)
-
-    if(matched_users):
-        users_set = ([matched_users])
-
-    print(users_set)
-
-    return users_set
+from ckan.lib.base import c
 
 
 class ExtendSearchPlugin(plugins.SingletonPlugin):
@@ -32,8 +10,8 @@ class ExtendSearchPlugin(plugins.SingletonPlugin):
     '''
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IPackageController, inherit=True)
+    plugins.implements(plugins.IDatasetForm, inherit=True)
 
-    get_package_creators()
 
     def update_config(self, config):
         toolkit.add_template_directory(config, 'templates')
@@ -64,3 +42,30 @@ class ExtendSearchPlugin(plugins.SingletonPlugin):
 
         return search_params
 
+    #IDatasetForm methods
+    def package_form(self):
+        return 'package/new_package_form.html'
+
+    def new_template(self):
+        return 'package/new.html'
+
+    def comments_template(self):
+        return 'package/comments.html'
+
+    def search_template(self):
+        return 'package/search.html'
+
+    def read_template(self):
+        return 'package/read.html'
+
+    def history_template(self):
+        return 'package/history.html'
+
+    def package_types(self):
+        return ['dataset']
+
+    def is_fallback(self):
+        return True
+
+    def setup_template_variables(self, context, data_dict=None, package_type=None):
+        c.users = meta.Session.query(User).all()

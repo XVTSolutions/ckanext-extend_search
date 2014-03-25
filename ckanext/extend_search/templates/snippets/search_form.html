@@ -5,8 +5,8 @@
 {% block search_facets %}
     {{ super() }}
 
+    {# Daterange #}
     <div id="datesearch-filter">
-
         {% if (request.params.get('ext_startdate')) %}
         <p class="filter-list">
             <span class="facet">Start Date:</span>
@@ -18,7 +18,15 @@
             <span id="ext_enddate_after" class="filtered pill"></span>
         </p>
         {% endif %}
+    </div>
 
+    {# Custodian #}
+    <div id="custodian-filter">
+        {% if (request.params.get('ext_cust')) %}
+        <p class="filter-list">
+            <span class="facet">Custodian:</span>
+            <span id="ext_cust" class="filtered pill"></span>
+        {% endif %}
     </div>
 
 {% endblock %}
