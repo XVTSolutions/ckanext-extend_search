@@ -10,7 +10,6 @@ class ExtendSearchPlugin(plugins.SingletonPlugin):
     '''Extends the Ckan dataset/package search
     '''
     plugins.implements(plugins.IConfigurer)
-    plugins.implements(plugins.IPackageController, inherit=True)
     plugins.implements(plugins.IDatasetForm, inherit=True)
 
     def get_user_name_by_id(id):
@@ -57,12 +56,6 @@ class ExtendSearchPlugin(plugins.SingletonPlugin):
             fq = '{fq} +creator_user_id:{cust_id}'.format(
                 fq=fq, cust_id=cust_id)
 
-            # user = meta.Session.query(User).filter(User.id==cust_id).first()
-            # if(user):
-            #     print(search_params['extras'])
-            #     search_params['extras'].update({'user_name':user.name})
-            #     print(search_params['extras'])
-
         #return modified facet queries
         search_params['fq'] = fq
 
@@ -87,14 +80,11 @@ class ExtendSearchPlugin(plugins.SingletonPlugin):
     def history_template(self):
         return 'package/history.html'
 
-    def edit_template(self):
-        return  'package/edit.html'
-
     def package_types(self):
         return ['dataset']
 
     def is_fallback(self):
-        return True
+        return False
 
     #Setup the model(s) to use in the template initialisation
     def setup_template_variables(self, context, data_dict=None, package_type=None):
