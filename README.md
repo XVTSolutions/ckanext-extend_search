@@ -1,6 +1,7 @@
+Extend Search
+==================================================================
 Uses and extends upon bootstrap-daterangepicker (credit to Dan Grossman Copyright 2012-2014)
 ==================================================================
-Extend Search extension
 
 - Adds a package/dataset date range search filter (modified-on metadata date)
 - Adds a package/dataset custodian search filter
