@@ -53,7 +53,7 @@ class ExtendSearchPlugin(plugins.SingletonPlugin):
 
         #Add creator (user) id query to the Solr facet queries
         if cust_id:
-            fq = '{fq} +creator_user_id:{cust_id}'.format(
+            fq = '{fq} +maintainer:{cust_id}'.format(
                 fq=fq, cust_id=cust_id)
 
         #return modified facet queries
