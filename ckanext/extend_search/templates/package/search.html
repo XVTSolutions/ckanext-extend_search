@@ -31,17 +31,19 @@
     </h2>
 
     {# The Custodian selectlist #}
-    <select id="cust_id" name="cust_id" data-module="custodianpicker-module">
-    {% for user in c.users %}
-        <option value="{{user.id}}"
-            {% if request.params.get('ext_cust_id')==user.id %}
-                selected="selected"
-            {% endif %}
-                >
-        {{user.name}}
-        </option>
-    {% endfor %}
-    </select>
+    <div class="module-content">
+        <select id="cust_id" name="cust_id" style="width: 190px" data-module="custodianpicker-module">
+        {% for user in c.users %}
+            <option value="{{user.id}}"
+                {% if request.params.get('ext_cust_id')==user.id %}
+                    selected="selected"
+                {% endif %}
+                    >
+            {{user.name}}
+            </option>
+        {% endfor %}
+        </select>
+    </div>
   </section>
 
   {{ super() }}
