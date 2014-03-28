@@ -10,6 +10,8 @@ class ExtendSearchPlugin(plugins.SingletonPlugin):
     '''
     Extends the Ckan dataset/package search
     '''
+    print "loading ckanext-extend_search"
+
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IPackageController, inherit=True)
 
