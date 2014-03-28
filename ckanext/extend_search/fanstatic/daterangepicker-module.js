@@ -1,12 +1,9 @@
-this.ckan.module('daterangepicker-module', function($, _) {
+this.ckan.module('daterangepicker-module', function ($, _) {
     return {
         initialize: function() {
 
             // Add hidden <input> tags #ext_startdate and #ext_enddate,
             // if they don't already exist.
-            //
-            //Note: dataset search form name no longer exists => select by css class
-            //var form = $("#dataset-search");
             var form = $(".search-form");
             if ($("#ext_startdate").length === 0) {
                 $('<input type="hidden" id="ext_startdate" name="ext_startdate" />').appendTo(form);
@@ -17,8 +14,8 @@ this.ckan.module('daterangepicker-module', function($, _) {
 
             // Get the start/end date search parameters and convert to Dates
             // Also populate the search facets for start/end date if we need to
-            var ext_startdate = null
-            var ext_enddate = null
+            var ext_startdate = null;
+            var ext_enddate = null;
 
             if(getURLParameter("ext_startdate")) {
                 ext_startdate = new Date(getURLParameter("ext_startdate"));
@@ -31,7 +28,6 @@ this.ckan.module('daterangepicker-module', function($, _) {
                 var startDateString = ext_startdate.toDateString();
                 $('#ext_startdate_after').text(startDateString);
             }
-
             if(getURLParameter("ext_enddate")) {
                 ext_enddate = new Date(getURLParameter("ext_enddate"));
 
@@ -43,10 +39,13 @@ this.ckan.module('daterangepicker-module', function($, _) {
                 var endDateString = ext_enddate.toDateString();
                 $('#ext_enddate_after').text(endDateString);
             }
+
             //Initialise the daterange picker textbox with the previously searched daterange
             if(ext_startdate && ext_enddate)
             {
-                $('#daterange').val(ext_startdate + ' - ' + ext_enddate);
+                var startDateString = ext_startdate.toDateString();
+                var endDateString = ext_enddate.toDateString();
+                $('#daterange').val(startDateString + ' - ' + endDateString);
             }
 
 

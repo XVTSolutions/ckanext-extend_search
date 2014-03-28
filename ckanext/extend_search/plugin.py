@@ -6,11 +6,11 @@ from ckan.lib.base import c
 
 
 
-class ExtendSearchPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
-    '''Extends the Ckan dataset/package search
+class ExtendSearchPlugin(plugins.SingletonPlugin):
+    '''
+    Extends the Ckan dataset/package search
     '''
     plugins.implements(plugins.IConfigurer)
-    plugins.implements(plugins.IDatasetForm, inherit=True)
     plugins.implements(plugins.IPackageController, inherit=True)
 
 
@@ -56,39 +56,9 @@ class ExtendSearchPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         return search_params
 
 
-    #IDatasetForm methods
-    def package_form(self):
-        return super(ExtendSearchPlugin, self).package_form()
+    def after_search(self, search_params, search_results):
 
-    def new_template(self):
-        return super(ExtendSearchPlugin, self).new_template()
-
-    def comments_template(self):
-        return super(ExtendSearchPlugin, self).comments_template()
-
-    def search_template(self):
-        return super(ExtendSearchPlugin, self).search_template()
-
-    def read_template(self):
-        return super(ExtendSearchPlugin, self).read_template()
-
-    def history_template(self):
-        return super(ExtendSearchPlugin, self).history_template()
-
-    def package_types(self):
-        return ['dataset']
-
-    def edit_template(self):
-        return super(ExtendSearchPlugin, self).edit_template()
-
-    def is_fallback(self):
-        return False
-
-
-    #Setup the model(s) to use in the template initialisation
-    def setup_template_variables(self, context, data_dict=None, package_type=None):
-       # c.users = meta.Session.query(User).all()
-
+        #Return a list of maintainers for the view
         packages = meta.Session.query(Package).all()
         maintainers = []
 
@@ -97,4 +67,6 @@ class ExtendSearchPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
         maintset = set(maintainers)
         c.maintainers = maintset
+
+        return search_params
 
