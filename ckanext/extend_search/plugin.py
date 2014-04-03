@@ -3,7 +3,7 @@ import ckan.plugins.toolkit as toolkit
 from ckan.model import User, Package
 import ckan.model.meta as meta
 from ckan.lib.base import c
-
+from sqlalchemy import distinct
 
 
 class ExtendSearchPlugin(plugins.SingletonPlugin):
@@ -61,12 +61,14 @@ class ExtendSearchPlugin(plugins.SingletonPlugin):
     def after_search(self, search_params, search_results):
 
         #Return a list of maintainers for the view
-        packages = meta.Session.query(Package).all()
-        maintainers = []
+#         packages = meta.Session.query(Package).all()
+#         maintainers = []
+# 
+#         for p in packages:
+#             if(p.maintainer):
+#                 maintainers.append(p.maintainer)
 
-        for p in packages:
-            if(p.maintainer):
-                maintainers.append(p.maintainer)
+        maintainers = [p[0] for p in meta.Session.query(distinct(Package.maintainer)) if p[0]]
 
         maintset = set(maintainers)
         c.maintainers = maintset
