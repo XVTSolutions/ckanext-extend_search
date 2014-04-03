@@ -65,7 +65,8 @@ class ExtendSearchPlugin(plugins.SingletonPlugin):
         maintainers = []
 
         for p in packages:
-            maintainers.append(p.maintainer)
+            if(p.maintainer):
+                maintainers.append(p.maintainer)
 
         maintset = set(maintainers)
         c.maintainers = maintset
