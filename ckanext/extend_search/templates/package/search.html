@@ -26,12 +26,14 @@
     <h2 class="module-heading">
         <i class="icon-medium icon-filter"></i>
         Custodian
+      {% if c.user %}
       <a href="{{ h.remove_url_param(['ext_cust_id']) }}"
          class="action">{{ _('Clear') }}</a>
+      {% endif %}
     </h2>
-
     {# The Custodian selectlist #}
     <div class="module-content">
+        {% if c.user %}
         <select id="cust_id" name="cust_id" style="width: 190px" data-module="custodianpicker-module">
             <option value=""
             {% if not request.params.get('ext_cust_id') %}
@@ -49,8 +51,10 @@
             </option>
         {% endfor %}
         </select>
+        {% else %}
+        Must be logged in to search by Custodian
+        {% endif %}
     </div>
-
   </section>
 
   {{ super() }}
