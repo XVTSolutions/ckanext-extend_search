@@ -53,7 +53,7 @@ this.ckan.module('daterangepicker-module', function ($, _) {
            $('input[id="daterange"]').daterangepicker({
                 ranges: {
                    'Today': [moment().startOf('day'), moment().endOf('day')],
-                   'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
+                   'Yesterday': [moment().startOf('day').subtract('days', 1), moment().endOf('day').subtract('days', 1)],
                    'Last 7 Days': [moment().subtract('days', 6), moment()],
                    'Last 30 Days': [moment().subtract('days', 29), moment()],
                    'This Month': [moment().startOf('month'), moment().endOf('month')],
