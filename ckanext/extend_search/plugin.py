@@ -6,7 +6,7 @@ from ckan.model import User, Package, Group
 import ckan.model.meta as meta
 from ckan.lib.base import c
 from sqlalchemy import distinct
-
+from helpers import extend_search_convert_local_to_utc_timestamp
 
 class ExtendSearchPlugin(plugins.SingletonPlugin):
     '''
@@ -32,8 +32,8 @@ class ExtendSearchPlugin(plugins.SingletonPlugin):
             # There are no extras in the search params, so do nothing.
             return search_params
 
-        start_date = extras.get('ext_startdate')
-        end_date = extras.get('ext_enddate')
+        start_date = extend_search_convert_local_to_utc_timestamp(extras.get('ext_startdate'))
+        end_date = extend_search_convert_local_to_utc_timestamp(extras.get('ext_enddate'))
         cust_id = extras.get('ext_cust_id')
 
         if not cust_id:
