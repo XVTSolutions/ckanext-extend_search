@@ -1,0 +1,7 @@
+#add any third party libraries here (insert in alphabetical order)
+#this file is used to quickly install third party libraries when deploying
+
+
+pytz==2014.2 
+
+
